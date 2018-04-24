@@ -112,12 +112,6 @@
       data.y = currY
       data.distance = data.distance
 
-      // jquery
-      if (defaults.useJquery) {
-        customEvent = jQuery.Event(eventName, {originalEvent: originalEvent})
-        jQuery(elm).trigger(customEvent, data)
-      }
-
       // addEventListener
       if (customEvent.initEvent) {
         for (var key in data) {
@@ -126,6 +120,11 @@
 
         customEvent.initEvent(eventName, true, true)
         elm.dispatchEvent(customEvent)
+      }
+
+      // jquery
+      if (defaults.useJquery) {
+        jQuery(elm).trigger(jQuery.Event(eventName, {originalEvent: originalEvent}), data)
       }
 
       // detect all the inline events
